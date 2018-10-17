@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aula.mobile.aula.R;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.Categoria;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.helper.CandidatoService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +25,9 @@ public class EleicaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eleicao);
 
         /*********BANCO DE DADOS**************/
-        CandidatoHelper candidatoHelper = new CandidatoHelper(this);
-        if (candidatoHelper.count() == 0)
-            candidatoHelper.add();
+        CandidatoService candidatoService = new CandidatoService(this);
+        if (candidatoService.count() == 0)
+            candidatoService.add();
         /***********************/
 
         final Spinner spCategoria = findViewById(R.id.spCategoria);

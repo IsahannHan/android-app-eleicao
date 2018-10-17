@@ -20,11 +20,9 @@ public enum ECategoria {
         return id;
     }
 
-
     public String getNome() {
         return nome;
     }
-
 
     public String getEstado() {
         return estado;

@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aula.mobile.aula.R;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.Candidato;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.helper.CandidatoService;
 
 import java.util.List;
 
@@ -35,8 +37,8 @@ public class EleicaoVotoActivity extends AppCompatActivity {
         tvText.setText("Pesquisa para: " + eCategoria.getNome() + " - " + eCategoria.getEstado());
 
 
-        CandidatoHelper candidatoHelper = new CandidatoHelper(this);
-        List<Candidato> candidatos = candidatoHelper.getList(eCategoria.getId());
+        CandidatoService candidatoService = new CandidatoService();
+        List<Candidato> candidatos = candidatoService.getList(eCategoria.getId());
 
         ArrayAdapter<Candidato> adapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, candidatos);

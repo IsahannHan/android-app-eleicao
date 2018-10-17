@@ -1,16 +1,29 @@
 <resources>
-    <string name="app_name">Aula mobile</string>
-    <string name="login">Login</string>
-    <string name="senha">Senha</string>
-    <string name="entrar">Entrar</string>
+    <string name="tbl_candidato">candidato</string>
+    <string name="tbl_categoria">categoria</string>
 
-    <string name="sql_create_tables">
+    <string name="sql_create_table_candidato">
          CREATE TABLE candidato	(
                 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 nome VARCHAR(100) NOT NULL,
                 partido VARCHAR(100) NOT NULL,
-                idCategoria INT NOT NULL
-        )
+                id_categoria INT NOT NULL REFERENCES categoria_candidato;
+        );
+    </string>
+
+    <string name="sql_create_table_categoria_candidato">
+        CREATE TABLE categoria_candidato (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            descricao VARCHAR(100) NOT NULL
+        );
+    </string>
+
+    <string name="sql_create_table_candidato_voto">
+        CREATE TABLE candidato_voto (
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            id_candidato INT NOT NULL REFERENCES categoria_candidato,
+            numero_votos INT NOT NULL
+        );
 	</string>
 
 </resources>
