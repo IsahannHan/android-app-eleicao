@@ -1,8 +1,8 @@
 <resources>
-    <string name="tbl_candidato">candidato</string>
-    <string name="tbl_categoria">categoria</string>
+    <string name="tbl_candidato" translatable="false">candidato</string>
+    <string name="tbl_categoria" translatable="false">categoria</string>
 
-    <string name="sql_create_table_candidato">
+    <string name="sql_create_table_candidato" translatable="false">
          CREATE TABLE candidato	(
                 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 nome VARCHAR(100) NOT NULL,
@@ -11,14 +11,14 @@
         );
     </string>
 
-    <string name="sql_create_table_categoria_candidato">
+    <string name="sql_create_table_categoria_candidato" translatable="false">
         CREATE TABLE categoria_candidato (
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             descricao VARCHAR(100) NOT NULL
         );
     </string>
 
-    <string name="sql_create_table_candidato_voto">
+    <string name="sql_create_table_candidato_voto" translatable="false">
         CREATE TABLE candidato_voto (
             id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             id_candidato INT NOT NULL REFERENCES categoria_candidato,

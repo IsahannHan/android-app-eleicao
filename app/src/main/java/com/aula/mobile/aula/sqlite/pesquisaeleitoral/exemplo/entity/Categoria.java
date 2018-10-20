@@ -13,7 +13,7 @@ public class Categoria {
     public int getId() {
         return id;
     }
-    public String getNome() {
+    public String getDescricao() {
         return descricao;
     }
 }

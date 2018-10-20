@@ -38,7 +38,7 @@ public class EleicaoVotoActivity extends AppCompatActivity {
 
 
         CandidatoService candidatoService = new CandidatoService();
-        List<Candidato> candidatos = candidatoService.getList(eCategoria.getId());
+        List<Candidato> candidatos = candidatoService.buscarCandidatos();
 
         ArrayAdapter<Candidato> adapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, candidatos);

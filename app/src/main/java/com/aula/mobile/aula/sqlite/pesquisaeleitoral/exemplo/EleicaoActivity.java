@@ -25,9 +25,9 @@ public class EleicaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eleicao);
 
         /*********BANCO DE DADOS**************/
-        CandidatoService candidatoService = new CandidatoService(this);
-        if (candidatoService.count() == 0)
-            candidatoService.add();
+        CandidatoService candidatoService = new CandidatoService();
+        if (candidatoService.buscarCandidatos().size() == 0)
+            candidatoService.adicionarCandidatos();
         /***********************/
 
         final Spinner spCategoria = findViewById(R.id.spCategoria);
@@ -38,7 +38,7 @@ public class EleicaoActivity extends AppCompatActivity {
         ECategoria[] eCategorias = ECategoria.values();
         for (int i = 0; i < eCategorias.length; i++) {
             ECategoria eCategoria = eCategorias[i];
-            categorias.add(new Categoria(eCategoria.getId(), eCategoria.getNome(), eCategoria.getEstado()));
+            categorias.add(new Categoria(eCategoria.getId(), eCategoria.getNome()));
         }
 
         configureSpinner(spCategoria, categorias);
