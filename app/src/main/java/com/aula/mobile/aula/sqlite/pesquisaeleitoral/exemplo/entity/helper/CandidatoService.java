@@ -115,4 +115,5 @@ public class CandidatoService {
             dBHelper.getWritableDatabase().insert(TABLE_CANDIDATO, null, values);
         }
     }
+
 }
