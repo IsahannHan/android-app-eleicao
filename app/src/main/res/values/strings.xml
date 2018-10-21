@@ -6,8 +6,9 @@
          CREATE TABLE candidato	(
                 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 nome VARCHAR(100) NOT NULL,
+                foto VARCHAR(100) NOT NULL,
                 partido VARCHAR(100) NOT NULL,
-                id_categoria INT NOT NULL REFERENCES categoria_candidato;
+                id_categoria INT NOT NULL REFERENCES categoria_candidato
         );
     </string>
 

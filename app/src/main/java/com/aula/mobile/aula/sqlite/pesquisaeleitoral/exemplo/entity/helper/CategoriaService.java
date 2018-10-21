@@ -1,39 +1,57 @@
 package com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.helper;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 
-import com.aula.mobile.aula.R;
 import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.database.DBHelper;
-import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.Candidato;
 import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.Categoria;
-import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.utils.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriaService {
 
-    private static final String TABLE_CATEGORIA = MyApplication.getContext().getString(R.string.tbl_categoria);
-    private static DBHelper dBHelper;
+    private Context context;
+    private final String TABLE_CATEGORIA = "categoria_candidato";
+    private DBHelper dBHelper;
 
-    public CategoriaService() {
-        dBHelper = new DBHelper();
+    public CategoriaService(Context context) {
+        this.context = context;
+        dBHelper = new DBHelper(context);
     }
 
-    public static Categoria buscarCategoriaPorId(int idCategoria) {
-        return lerCategoria(dBHelper.getReadableDatabase()
-                .rawQuery("SELECT * FROM categoria WHERE id = ?;", new String[]{String.valueOf(idCategoria)}));
+    public List<Categoria> buscarCategorias(){
+        return lerListaCategorias(dBHelper.getReadableDatabase()
+                .rawQuery("SELECT * FROM categoria_candidato ", null));
     }
 
-    public static Categoria buscarCategoriaPorDescricao(String descricao) {
+    public Categoria buscarCategoriaPorId(int idCategoria) {
         return lerCategoria(dBHelper.getReadableDatabase()
-                .rawQuery("SELECT * FROM categoria WHERE descricao = '?';", new String[]{descricao}));
+                .rawQuery("SELECT * FROM categoria_candidato WHERE id = ?;", new String[]{String.valueOf(idCategoria)}));
+    }
+
+    public Categoria buscarCategoriaPorDescricao(String descricao) {
+        return lerCategoria(dBHelper.getReadableDatabase()
+                .rawQuery("SELECT * FROM categoria_candidato WHERE descricao LIKE ?;", new String[]{descricao}));
     }
 
     // Métodos auxiliares
 
-    private static Categoria lerCategoria(Cursor cursor) {
+    private List<Categoria> lerListaCategorias(Cursor cursor) {
+        List<Categoria> listaCategorias = new ArrayList<>();
+
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String descricao = cursor.getString(cursor.getColumnIndex("descricao"));
+
+            listaCategorias.add(new Categoria(id, descricao));
+        }
+
+        return listaCategorias;
+    }
+
+    private Categoria lerCategoria(Cursor cursor) {
         Categoria categoria = null;
 
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {

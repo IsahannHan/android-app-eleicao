@@ -11,21 +11,33 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.aula.mobile.aula.R;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.adapter.SpinAdapter;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.CandidatoVoto;
 import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.Categoria;
 import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.helper.CandidatoService;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.helper.CandidatoVotoService;
+import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.entity.helper.CategoriaService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EleicaoActivity extends AppCompatActivity {
+
+    private SpinAdapter spinAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eleicao);
 
+//        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        CandidatoService candidatoService = new CandidatoService(getApplicationContext());
+        final CandidatoVotoService candidatoVotoService = new CandidatoVotoService(getApplicationContext());
+        CategoriaService categoriaService = new CategoriaService(getApplicationContext());
+
         /*********BANCO DE DADOS**************/
-        CandidatoService candidatoService = new CandidatoService();
+        if (categoriaService.buscarCategorias().size() == 0)
+            categoriaService.adicionarCategorias();
+
         if (candidatoService.buscarCandidatos().size() == 0)
             candidatoService.adicionarCandidatos();
         /***********************/
@@ -34,14 +46,10 @@ public class EleicaoActivity extends AppCompatActivity {
         Button btIniciar = findViewById(R.id.btIniciar);
         Button btResultado = findViewById(R.id.btResultado);
 
-        List<Categoria> categorias = new ArrayList<>();
-        ECategoria[] eCategorias = ECategoria.values();
-        for (int i = 0; i < eCategorias.length; i++) {
-            ECategoria eCategoria = eCategorias[i];
-            categorias.add(new Categoria(eCategoria.getId(), eCategoria.getNome()));
-        }
+        List<Categoria> listaCategorias = categoriaService.buscarCategorias();
+        spinAdapter = new SpinAdapter(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, listaCategorias);
 
-        configureSpinner(spCategoria, categorias);
+        spCategoria.setAdapter(spinAdapter);
 
         btIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,18 +64,15 @@ public class EleicaoActivity extends AppCompatActivity {
         btResultado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Implementar", Toast.LENGTH_SHORT).show();
+                List<CandidatoVoto> listaVotos = candidatoVotoService.buscarResultadoGeral();
+                StringBuilder votos = new StringBuilder();
+
+
+                for (CandidatoVoto voto : listaVotos) {
+                    votos.append("Candidato: " + voto.getCandidato().getNome() + " / Votos: " + voto.getNumeroVotos() + "\n");
+                }
+                Toast.makeText(getApplicationContext(), votos.toString(), Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private void configureSpinner(Spinner spCategoria, List<Categoria> categorias) {
-        //toString candidato
-        ArrayAdapter<Categoria> dataAdapter =
-                new ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias);
-
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spCategoria.setAdapter(dataAdapter);
     }
 }

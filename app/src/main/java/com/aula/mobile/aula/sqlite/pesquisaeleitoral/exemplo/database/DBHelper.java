@@ -1,25 +1,27 @@
 package com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.database;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.aula.mobile.aula.R;
-import com.aula.mobile.aula.sqlite.pesquisaeleitoral.exemplo.utils.MyApplication;
 
 public class DBHelper extends SQLiteOpenHelper {
 
+    private Context context;
     private static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "eleicao.db";
+    public static final String DATABASE_NAME = "eleicao.db." + Math.random();
 
-    public DBHelper() {
-        super(MyApplication.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
+    public DBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(MyApplication.getContext().getString(R.string.sql_create_table_candidato));
-        db.execSQL(MyApplication.getContext().getString(R.string.sql_create_table_candidato_voto));
-        db.execSQL(MyApplication.getContext().getString(R.string.sql_create_table_categoria_candidato));
+        db.execSQL(context.getString(R.string.sql_create_table_candidato));
+        db.execSQL(context.getString(R.string.sql_create_table_candidato_voto));
+        db.execSQL(context.getString(R.string.sql_create_table_categoria_candidato));
     }
 
     @Override
