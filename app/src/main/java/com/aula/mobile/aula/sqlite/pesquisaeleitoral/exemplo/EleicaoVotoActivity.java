@@ -55,16 +55,20 @@ public class EleicaoVotoActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Candidato item = (Candidato) parent.getItemAtPosition(position);
+                final Candidato candidato = (Candidato) parent.getItemAtPosition(position);
                 new AlertDialog.Builder(activity)
                         .setIcon(R.drawable.ic_vote)
                         .setTitle("Cofirmar voto")
-                        .setMessage("Deseja confirmar seu voto em " + item.getNome() +" ?")
+                        .setMessage("Deseja confirmar seu voto em " + candidato.getNome() +" ?")
                         .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                candidatoVotoService.realizarVotoEmCandidato(item.getId());
-                                Toast.makeText(getApplicationContext(), "Voto computado com sucesso!", Toast.LENGTH_SHORT).show();
+                                candidatoVotoService.realizarVotoEmCandidato(candidato.getId());
+                                if(candidato.getNome().equals("Cabo Daciolo")){
+                                    Toast.makeText(getApplicationContext(), "Voto computado com sucesso! \n GLÓRIA A DEUXXXX", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Voto computado com sucesso!", Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                         })
