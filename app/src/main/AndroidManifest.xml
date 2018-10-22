@@ -19,6 +19,7 @@
         </activity>
 
         <activity android:name=".sqlite.pesquisaeleitoral.exemplo.EleicaoVotoActivity" />
+        <activity android:name=".sqlite.pesquisaeleitoral.exemplo.ResultadoActivity" />
 
     </application>
 

@@ -88,6 +88,7 @@ public class CandidatoService {
         listaCandidatos.add(new Candidato(12, "Ciro Gomes", "ciro_games", "PDT", categoriaPresidente));
         listaCandidatos.add(new Candidato(50, "Guilherme Boulos", "guilherme_bolos_e_doces", "PSOL", categoriaPresidente));
         listaCandidatos.add(new Candidato(30, "João Amoedo", "john_male_coin", "NOVO", categoriaPresidente));
+        listaCandidatos.add(new Candidato(51, "Cabo Daciolo", "cape_daciol", "PATRIOTA", categoriaPresidente));
 
         // Governadores
         listaCandidatos.add(new Candidato(55, "Ratinho JR", "lil_rat_jr", "PSD", categoriaGovernador));
@@ -115,5 +116,4 @@ public class CandidatoService {
             dBHelper.getWritableDatabase().insert(TABLE_CANDIDATO, null, values);
         }
     }
-
 }

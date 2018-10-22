@@ -8,9 +8,9 @@ import com.aula.mobile.aula.R;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private Context context;
+    public static final String DATABASE_NAME = "eleicao.database." + Math.random();
     private static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "eleicao.db." + Math.random();
+    private Context context;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

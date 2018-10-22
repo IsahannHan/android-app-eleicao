@@ -27,6 +27,14 @@ public class CandidatoVotoService {
                 .rawQuery("SELECT * FROM candidato_voto;", null));
     }
 
+    public List<CandidatoVoto> buscarResultadoPorCategoria(int idCategoria) {
+        return lerListaVotos(dBHelper.getReadableDatabase()
+                .rawQuery("SELECT * FROM candidato_voto cv " +
+                        " INNER JOIN candidato c ON cv.id_candidato =  c.id " +
+                        " WHERE c.id_categoria = ?" +
+                        " ORDER BY cv.numero_votos DESC;", new String[]{String.valueOf(idCategoria)}));
+    }
+
     public CandidatoVoto buscarResultadoPorCandidato(int idCandidato) {
         return lerVoto(dBHelper.getReadableDatabase()
                 .rawQuery("SELECT * FROM candidato_voto WHERE id_candidato = ?;", new String[]{String.valueOf(idCandidato)}));

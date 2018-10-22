@@ -41,7 +41,7 @@ public class EleicaoVotoActivity extends AppCompatActivity {
         CategoriaService categoriaService = new CategoriaService(getApplicationContext());
         Categoria categoria = categoriaService.buscarCategoriaPorId(idCategoria);
 
-        tvText.setText("Pesquisa para: " + categoria.getDescricao());
+        tvText.setText("Clique para votar em " + categoria.getDescricao());
 
         final CandidatoService candidatoService = new CandidatoService(getApplicationContext());
         final CandidatoVotoService candidatoVotoService = new CandidatoVotoService(getApplicationContext());
@@ -58,7 +58,7 @@ public class EleicaoVotoActivity extends AppCompatActivity {
                 final Candidato item = (Candidato) parent.getItemAtPosition(position);
                 new AlertDialog.Builder(activity)
                         .setIcon(R.drawable.ic_vote)
-                        .setTitle("Pesquisa eleitoral")
+                        .setTitle("Cofirmar voto")
                         .setMessage("Deseja confirmar seu voto em " + item.getNome() +" ?")
                         .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                             @Override

@@ -58,20 +58,17 @@ public class EleicaoActivity extends AppCompatActivity {
                 Intent intent = new Intent(EleicaoActivity.this, EleicaoVotoActivity.class);
                 intent.putExtra("id", categoria.getId());
                 startActivity(intent);
+
             }
         });
 
         btResultado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<CandidatoVoto> listaVotos = candidatoVotoService.buscarResultadoGeral();
-                StringBuilder votos = new StringBuilder();
-
-
-                for (CandidatoVoto voto : listaVotos) {
-                    votos.append("Candidato: " + voto.getCandidato().getNome() + " / Votos: " + voto.getNumeroVotos() + "\n");
-                }
-                Toast.makeText(getApplicationContext(), votos.toString(), Toast.LENGTH_LONG).show();
+                Categoria categoria = (Categoria) spCategoria.getSelectedItem();
+                Intent intent = new Intent(EleicaoActivity.this, ResultadoActivity.class);
+                intent.putExtra("id", categoria.getId());
+                startActivity(intent);
             }
         });
     }
